@@ -36,7 +36,7 @@ const Header = () => {
         <H1 to={"/"}>
           {" "}
           <TbMovie size={80} />
-          Film Club
+          <P>Film Club</P>
         </H1>
         <SearchBar>
           <Input
@@ -46,7 +46,6 @@ const Header = () => {
             value={value}
             onChange={onChange}
           />
-          {/* <Button onClick={() => onSearch(searchedFilms)}>Search</Button> */}
           <SearchWrapper>
             <SearchDiv>
               {searchedFilms &&
@@ -85,10 +84,8 @@ const SearchDiv = styled.div`
 
 const Div = styled.div`
   width: 100%;
-  /* position: relative; */
   background-color: #9e0505; // red
   border-radius: 5px;
-  margin-bottom: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,7 +95,7 @@ const H1 = styled(Link)`
   color: #faf5f5;
   display: flex;
   justify-content: center;
-  padding-top: 40px;
+  align-items: center;
   font-family: "Yanone Kaffeesatz", sans-serif;
   text-decoration: none;
 `;
@@ -120,20 +117,6 @@ const Input = styled.input`
   &::placeholder {
     color: #a3a3a3;
   }
-  /* position: absolute;
-  top: 10px;
-  right: 10px; */
-  /* transform: translateX(-100%); */
-  /* width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-
-  &:focus {
-    outline: none;
-    border-color: #0077cc;
-    box-shadow: 0 0 4px rgba(0, 119, 204, 0.4);
-  } */
 `;
 
 const SearchBar = styled.div`
@@ -168,5 +151,7 @@ const SearchedLink = styled(Link)`
   color: black;
   text-decoration: none;
 `;
+
+const P = styled.p``;
 
 export default Header;

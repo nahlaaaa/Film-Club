@@ -17,7 +17,14 @@ const Rating = ({ userId, movieId, selectedFilm }) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId, movieId, rating, review, watchlist }),
+      body: JSON.stringify({
+        userId,
+        movieId,
+        rating,
+        review,
+        watchlist,
+        movieData: selectedFilm,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -47,42 +54,50 @@ const Rating = ({ userId, movieId, selectedFilm }) => {
 
   return (
     <>
-      <ReactStars
-        activeColor={"#9e0505"}
-        onChange={(rate) => setRating(rate)}
-        size={50}
-        isHalf={true}
-      />
-      <Textarea
-        placeholder="What do you think?"
-        onChange={(e) => setReview(e.target.value)}
-      />
-      <Button onClick={postRatingReview}>Post</Button>
-      {submited && <Thanks>thanks for reviewing</Thanks>}
-      <BsFillBookmarkFill
-        color="white"
-        size={"50px"}
-        fill={watchlist ? "#9e0505" : "white"}
-        onClick={() => {
-          setWatchlist(!watchlist);
-          addToWatchlist();
-        }}
-      />
+      <Div>
+        <ReactStars
+          activeColor={"#dbbf09"}
+          onChange={(rate) => setRating(rate)}
+          size={50}
+          isHalf={true}
+        />
+        <BsFillBookmarkFill
+          color="white"
+          size={"50px"}
+          fill={watchlist ? "#9e0505" : "white"}
+          onClick={() => {
+            setWatchlist(!watchlist);
+            addToWatchlist();
+          }}
+        />
+      </Div>
+      <Wrapper>
+        <Textarea
+          placeholder="What do you think?"
+          onChange={(e) => setReview(e.target.value)}
+        />
+        <Button onClick={postRatingReview}>Post</Button>
+      </Wrapper>
+      {submited && <Thanks>Thanks for reviewing :)</Thanks>}
     </>
   );
 };
 
 const Textarea = styled.textarea`
-  border: 2px solid #ccc;
+  border: 5px solid #9e0505;
   border-radius: 5px;
-  background-color: #f7f7f7;
-  color: #333;
+  background-color: black;
+  color: white;
   font-family: Arial, sans-serif;
   font-size: 16px;
   padding: 10px;
-  width: 500px;
+  width: 900px;
   height: 100px;
   resize: none;
+  margin-top: 10px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
@@ -107,6 +122,19 @@ const Button = styled.button`
 
 const Thanks = styled.p`
   color: white;
+  margin-top: 10px;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+
+  gap: 30px;
+`;
 export default Rating;

@@ -11,19 +11,19 @@ const LoginButton = () => {
   );
 };
 
-
 const Button = styled.button`
   background-color: #faf5f5;
   border: none;
-  color:#9e0505;
-  padding: 10px 20px;
+  color: #9e0505;
+  padding: 5px 5px;
+  height: 35px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 15px;
   cursor: pointer;
-  border-radius: 25px;
+  border-radius: 5px;
   box-shadow: 0px 5px 15px rgba(75, 93, 104, 0.15);
   transition: background-color 0.3s ease;
 
@@ -31,6 +31,5 @@ const Button = styled.button`
     background-color: #edd5d5;
   }
 `;
-
 
 export default LoginButton;

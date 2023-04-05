@@ -10,9 +10,9 @@ const Profile = () => {
       <ProfileLink to={"/userprofile"}>
         <>
           {isAuthenticated && (
-            <article className="row">
+            <Container>
+              <H2>{user.name}</H2>
               {user?.picture && <Img src={user.picture} alt={user?.name} />}
-              <H2>Welcome backe {user.name}</H2>
               {/* <ul>
           {Object.keys(user).map((objKey, i) => (
             <li key={i}>
@@ -20,7 +20,7 @@ const Profile = () => {
             </li>
           ))}
         </ul> */}
-            </article>
+            </Container>
           )}
         </>
       </ProfileLink>
@@ -43,5 +43,11 @@ const H2 = styled.h2`
 
 const ProfileLink = styled(Link)`
   text-decoration: none;
+`;
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 15px;
 `;
 export default Profile;

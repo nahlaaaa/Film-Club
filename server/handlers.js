@@ -105,29 +105,20 @@ const postRating = async (req, res) => {
     review,
     watchlist,
   } = req.body;
-  console.log(
-    "body info",
-    movieId,
-    rating, //5
-    userId
-  );
-  // const newRating = req.body;
+  console.log("body info", movieId, rating, userId);
+
   try {
     await client.connect();
     console.log("connected!");
     const findResult = await db
-      .collection("User-Rating")
-      .findOne({ movieId: parseInt(movieId), userId: userId, movieData });
+      .collection("User-Data")
+      .findOne({ movieId: parseInt(movieId) });
     console.log("findresult", findResult);
-    // if (findResult) {
-    //   const result = await db.collection("User-Rating").updateOne(req.body);
-    //   console.log("result form insert", result);
-    //   if (result.modifiedCount > 0) {
-    //     return res.json("updated!");
-    //   }
-    // }
+    if (findResult) {
+      return res.status(400).json("Movie  has already been rated");
+    }
     console.log("rating was not found will insert now");
-    const result = await db.collection("User-Rating").insertOne(req.body);
+    const result = await db.collection("User-Data").insertOne(req.body);
     if (result.acknowledged && result.insertedId) {
       return res.status(200).json({
         status: 200,
@@ -213,7 +204,7 @@ const GetUserData = async (req, res) => {
   const db = client.db("Film-Club");
   try {
     await client.connect();
-    const userData = await db.collection("User-Rating").find().toArray();
+    const userData = await db.collection("User-Data").find().toArray();
     if (userData) {
       res.status(200).json({ status: 200, data: userData, message: "success" });
     } else {
@@ -228,6 +219,77 @@ const GetUserData = async (req, res) => {
   }
 };
 
+const patchUserData = async (req, res) => {
+  const client = new MongoClient(CONNECTION_STRING_URI, options);
+  const db = client.db("Film-Club");
+  await client.connect();
+
+  const { review, rating } = req.body;
+  if (!review || !rating) {
+    return res.status(400).json("no review founded");
+  }
+  const { movieId } = req.body;
+  const newUpdate = { $set: { review, rating } };
+  console.log(movieId);
+  try {
+    const result = await db
+      .collection("User-Data")
+      .updateOne({ movieId: movieId }, newUpdate);
+    console.log(result);
+    if (result.matchedCount === 0) {
+      res.status(400).json("not found :(");
+    } else if (result.modifiedCount === 0) {
+      res.status(400).json("nothing was updated");
+    } else if (result.matchedCount == 1 && result.modifiedCount == 1) {
+      res.status(200).json(newUpdate);
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
+
+const deleteWatchlist = async (req, res) => {
+  try {
+    const { _id } = req.body;
+    console.log(_id);
+    console.log(req.body);
+    const client = new MongoClient(CONNECTION_STRING_URI, options);
+    await client.connect();
+    const db = client.db("Film-Club");
+    await db.collection("Watchlist").deleteOne({
+      _id: Number(_id),
+    });
+
+    //////
+    res.status(200).json("removed");
+    client.close();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+const deleteUserData = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const client = new MongoClient(CONNECTION_STRING_URI, options);
+    await client.connect();
+    const db = client.db("Film-Club");
+    await db.collection("User-Data").deleteOne({
+      movieId: Number(id),
+    });
+
+    //////
+    res.status(200).json("removed");
+    client.close();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   getFilms,
   getPopFilms,
@@ -236,4 +298,7 @@ module.exports = {
   GetUserData,
   PostWatchlist,
   GetWatchlist,
+  patchUserData,
+  deleteWatchlist,
+  deleteUserData,
 };

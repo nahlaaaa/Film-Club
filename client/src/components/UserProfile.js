@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { BsFillTrashFill } from "react-icons/bs";
+import { GrEdit } from "react-icons/gr";
+import { FcEditImage } from "react-icons/fc";
+import Edit from "./Edit";
 
 const img = "https://image.tmdb.org/t/p/w500/";
 
@@ -9,6 +13,8 @@ const UserProfile = () => {
   const { user, setUser } = useAuth0();
   const [watchlist, setWatchlist] = useState("");
   const [profileInfo, setProfileInfo] = useState([]);
+  const [refetch, setRefetch] = useState(true);
+  const [refetchUserData, setRefetchUserData] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/getwatchlist`)
@@ -18,7 +24,7 @@ const UserProfile = () => {
         setWatchlist(data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [refetch]);
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/profiledata`)
@@ -28,8 +34,44 @@ const UserProfile = () => {
         setProfileInfo(data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [refetchUserData]);
 
+  const updatedReview = (newReview, movieId) => {
+    fetch(`http://localhost:8000/api/userdataupdate`, {
+      headers: {
+        Accept: "aplication/json",
+        "content-Type": "application/json",
+      },
+      method: "PATCH",
+      body: JSON.stringify({
+        review: newReview,
+        rating: "fake rating",
+        movieId: movieId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // setEdit(true);
+      });
+  };
+
+  const handleDelete = (movieId) => {
+    console.log(movieId);
+    fetch(`http://localhost:8000/api/deletewatchlist`, {
+      method: "DELETE",
+      headers: {
+        Accept: "aplication/json",
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify({ _id: movieId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRefetch(!refetch);
+      });
+  };
   return (
     <Wrapper>
       {user && watchlist && (
@@ -39,24 +81,43 @@ const UserProfile = () => {
             <Img src={user.picture} alt={user?.name} />
           </div>
           <ProfileInfo>
-            <H1>latest avtivities</H1>
+            <H1>latest activities</H1>
             {profileInfo &&
-              profileInfo.slice(-7).map((info) => {
-                return (
-                  <>
-                    <P>{info.rating}</P>
-                    <P>{info.review}</P>
-                    <P>{info.movieId}</P>
-                    <img src={img + info} />
-                  </>
-                );
-              })}
+              profileInfo
+                .slice(-7)
+                .reverse()
+                .map((info) => {
+                  return (
+                    <>
+                      <PosterImg src={img + info.movieData.poster_path} />
+                      <P>{info.movieData.title}</P>
+                      <P>{info.rating}</P>
+                      <P>{info.review}</P>
+                      <Edit
+                        review={info.review}
+                        updatedReview={updatedReview}
+                        movieId={info.movieData.id}
+                        handleDelete={handleDelete}
+                        refetchUserData={refetchUserData}
+                        setRefetchUserData={setRefetchUserData}
+                      />
+                    </>
+                  );
+                })}
           </ProfileInfo>
           <WatchlistBox>
             <H1>Watchlist</H1>
-            {watchlist.map((list) => {
+            {watchlist.reverse().map((list) => {
+              console.log(list.movieData.id);
               return (
                 <ListInfo>
+                  <BsFillTrashFill
+                    size={30}
+                    color="white"
+                    onClick={() => {
+                      handleDelete(list.movieData.id);
+                    }}
+                  />
                   <WatchlistLink to={`/FilmDetails/${list.movieData.id}`}>
                     <Poster src={img + list.movieData.poster_path} />
                     <P>{list.movieData.title}</P>
@@ -72,7 +133,13 @@ const UserProfile = () => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
+  /* display: flex; */
+  width: 100%;
+  display: grid;
+  margin-left: 5px;
+  grid-template-columns: repeat(1fr, 1fr, 1fr);
+  grid-gap: 0.2em;
+  justify-content: center;
 `;
 
 const UserInfo = styled.div`
@@ -103,13 +170,18 @@ const Img = styled.img`
 `;
 
 const WatchlistBox = styled.div`
-  width: 200px;
-  height: 400px;
-  color: grey;
-  margin: 20px;
+  flex: 0;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  align-items: center;
+  list-style: none;
+  margin: 5px;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #272727;
+  color: white;
+  text-decoration: none;
 `;
 
 const P = styled.p`
@@ -125,5 +197,23 @@ const WatchlistLink = styled(Link)`
   text-decoration: none;
 `;
 
-const ProfileInfo = styled.div``;
+const ProfileInfo = styled.div`
+  flex: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  margin: 5px;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #272727;
+  color: white;
+  text-decoration: none;
+`;
+
+const PosterImg = styled.img`
+  width: 80px;
+  height: 80px;
+`;
 export default UserProfile;

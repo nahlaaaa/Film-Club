@@ -34,13 +34,15 @@ const FilmDetails = () => {
             <OverView>{selectedFilm.overview}</OverView>
             <Date>{selectedFilm.release_date}</Date>
           </InfoDiv>
-          {user && (
-            <Rating
-              movieId={selectedFilm.id}
-              userId={user.email}
-              selectedFilm={selectedFilm}
-            />
-          )}
+          <ReviewDiv>
+            {user && (
+              <Rating
+                movieId={selectedFilm.id}
+                userId={user.email}
+                selectedFilm={selectedFilm}
+              />
+            )}
+          </ReviewDiv>
         </Wrapper>
       )}
     </Div>
@@ -58,11 +60,13 @@ const Wrapper = styled.div`
 `;
 
 const InfoDiv = styled.div`
-  margin-top: -250px;
+  margin-top: -450px;
   border: 5px solid #9e0505;
   border-radius: 10px;
-  margin-top: -80px;
   padding-left: 10px;
+  width: 900px;
+  position: relative;
+  right: -400px;
 `;
 
 const Title = styled.h2`
@@ -103,6 +107,13 @@ const PosterImg = styled.img`
   border-radius: 50px;
   height: 500px;
   width: auto;
+`;
+
+const ReviewDiv = styled.div`
+  width: 900px;
+  position: relative;
+  right: -400px;
+  margin-top: 10px;
 `;
 
 export default FilmDetails;

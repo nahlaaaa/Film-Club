@@ -30,5 +30,6 @@ const App = () => {
 
 const Wrapper = styled.div`
   font-family: "Yanone Kaffeesatz", sans-serif;
+  min-width: 1250px;
 `;
 export default App;
