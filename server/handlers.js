@@ -22,28 +22,6 @@ const getFilms = async (req, res) => {
       // console.log(data);
     });
   return;
-
-  const client = new MongoClient(CONNECTION_STRING_URI, options);
-  const db = client.db("Film-Club");
-  try {
-    await client.connect();
-    const films = await db.collection("films").find().toArray();
-    if (films) {
-      return res
-        .status(200)
-        .json({ status: 200, data: films, message: "success" });
-    } else {
-      return res.status(404).json({
-        status: 404,
-        data: null,
-        message: "failed to retreive films data, please  try again later",
-      });
-    }
-  } catch (err) {
-    console.log(err);
-  } finally {
-    client.close();
-  }
 };
 
 const getPopFilms = async (req, res) => {
@@ -290,6 +268,81 @@ const deleteUserData = async (req, res) => {
   }
 };
 
+const getTrailer = async (req, res) => {
+  const { movieId } = req.params;
+  fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      let trailer = data.results.filter((video) => {
+        return video.type === "Trailer";
+      });
+      res.status(200).json(trailer);
+    });
+  return;
+};
+const getDrama = async (req, res) => {
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?with_genres=18&primary_release_year=2014&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      res.status(200).json(data);
+      console.log(data);
+    });
+  return;
+};
+
+const getTheatres = async (req, res) => {
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      res.status(200).json(data);
+      console.log(data);
+    });
+  return;
+};
+
+const getKids = async (req, res) => {
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?certification_country=US&certification.lte=G&sort_by=popularity.desc&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      res.status(200).json(data);
+      console.log(data);
+    });
+  return;
+};
+
+const getScienceFiction = async (req, res) => {
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?with_genres=878&with_cast=500&sort_by=vote_average.desc&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      res.status(200).json(data);
+      console.log(data);
+    });
+  return;
+};
+
+const getComedy = async (req, res) => {
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?with_genres=35&with_cast=23659&sort_by=revenue.desc&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      res.status(200).json(data);
+      console.log(data);
+    });
+  return;
+};
+
 module.exports = {
   getFilms,
   getPopFilms,
@@ -301,4 +354,10 @@ module.exports = {
   patchUserData,
   deleteWatchlist,
   deleteUserData,
+  getTrailer,
+  getDrama,
+  getTheatres,
+  getKids,
+  getScienceFiction,
+  getComedy,
 };

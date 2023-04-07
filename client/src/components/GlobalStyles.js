@@ -1,8 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 import backgroundImg from "./movies.jpeg";
+// import Yanone from "../fonts/YanoneKaffeesatz-VariableFont_wght.ttf";
 
 export default createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap');
+
+/* @font-face {
+    font-family: 'Yanone';
+    src: url('../fonts/YanoneKaffeesatz-VariableFont_wght.ttf') format('truetype');
+  } */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -34,7 +39,7 @@ body {
     /* background-color: black; */
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    /* font-family: 'Yanone', sans-serif !important */
 }
 ol, ul {
     list-style: none;

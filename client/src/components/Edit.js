@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import styled from "styled-components";
-import { FcEditImage } from "react-icons/fc";
+import { CiEdit } from "react-icons/ci";
 import { BsFillTrashFill } from "react-icons/bs";
+import styled from "styled-components";
 
 const Edit = ({
   review,
@@ -35,7 +35,7 @@ const Edit = ({
         {review}
       </Textarea>
       <IconsDiv>
-        <FcEditImage
+        <CiEdit
           size={30}
           onClick={() => {
             updatedReview(editedReview, movieId);

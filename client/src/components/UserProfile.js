@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BsFillTrashFill } from "react-icons/bs";
-import { GrEdit } from "react-icons/gr";
+import { CiEdit } from "react-icons/ci";
 import { FcEditImage } from "react-icons/fc";
 import Edit from "./Edit";
 
@@ -133,13 +133,14 @@ const UserProfile = () => {
 };
 
 const Wrapper = styled.div`
-  /* display: flex; */
+  display: flex;
   width: 100%;
   display: grid;
   margin-left: 5px;
-  grid-template-columns: repeat(1fr, 1fr, 1fr);
-  grid-gap: 0.2em;
-  justify-content: center;
+  /* grid-template-columns: repeat(1fr, 1fr, 1fr); */
+  /* grid-gap: 0.2em; */
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const UserInfo = styled.div`
@@ -213,7 +214,7 @@ const ProfileInfo = styled.div`
 `;
 
 const PosterImg = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 `;
 export default UserProfile;

@@ -10,12 +10,24 @@ const {
   patchUserData,
   deleteWatchlist,
   deleteUserData,
+  getTrailer,
+  getDrama,
+  getTheatres,
+  getKids,
+  getScienceFiction,
+  getComedy,
 } = require("./handlers");
 // movies endpoints
 router.get("/api/films", getFilms);
 router.get("/api/popfilms", getPopFilms);
 router.get("/api/film/:id", getSingleFilm);
 router.post("/api/rating", postRating);
+router.get("/api/gettrailer/:movieId", getTrailer);
+router.get("/api/drama", getDrama);
+router.get("/api/theatres", getTheatres);
+router.get("/api/kids", getKids);
+router.get("/api/sf", getScienceFiction);
+router.get("/api/comedy", getComedy);
 // watchlist endpoints
 router.post("/api/watchlist", PostWatchlist);
 router.get("/api/getwatchlist", GetWatchlist);

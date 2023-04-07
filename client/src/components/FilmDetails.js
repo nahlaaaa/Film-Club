@@ -12,6 +12,7 @@ const FilmDetails = () => {
   const [selectedFilm, setSelectedFilm] = useState(null);
   const { user, setUser } = useAuth0();
   const { filmid } = useParams();
+  const [ytKey, setYtKey] = useState();
   useEffect(() => {
     fetch(`http://localhost:8000/api/film/${filmid}`)
       .then((res) => res.json())
@@ -22,11 +23,28 @@ const FilmDetails = () => {
       .catch((err) => console.log(err));
   }, [filmid]);
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/gettrailer/${filmid}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setYtKey(data[0].key);
+      })
+      .catch((err) => console.log(err));
+  }, [filmid]);
+
   return (
     <Div>
-      {selectedFilm && (
+      {selectedFilm && ytKey && (
         <Wrapper>
-          <YouTube>{selectedFilm.id}</YouTube>
+          <YtDiv>
+            <YouTube
+              videoId={ytKey}
+              // onReady={(event) => event.target.playVideo()}
+              width={640}
+              height={360}
+            />
+          </YtDiv>
           <Img src={img + selectedFilm.backdrop_path} />
           <PosterImg src={img + selectedFilm.poster_path} />
           <InfoDiv>
@@ -72,19 +90,22 @@ const InfoDiv = styled.div`
 const Title = styled.h2`
   font-size: 2.5rem;
   margin-bottom: 10px;
-  color: white;
+  color: black;
+  font-family: "Bai Jamjuree", sans-serif;
 `;
 
 const OverView = styled.p`
   font-size: 1.2rem;
   line-height: 1.5;
   margin-bottom: 30px;
-  color: white;
+  color: black;
+  font-family: "Bai Jamjuree", sans-serif;
 `;
 
 const Date = styled.p`
   font-size: 30px;
-  color: white;
+  color: black;
+  font-family: "Bai Jamjuree", sans-serif;
 `;
 
 const Img = styled.img`
@@ -114,6 +135,25 @@ const ReviewDiv = styled.div`
   position: relative;
   right: -400px;
   margin-top: 10px;
+`;
+
+const YtDiv = styled.div`
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+  position: absolute;
+  top: 150px;
+  left: 400px;
+  padding-top: 50px;
+`;
+
+const YtButton = styled.button`
+  border-radius: 10px;
+  position: absolute;
+  top: 570px;
+  left: 660px;
+  padding-top: 50px;
+  z-index: 1;
 `;
 
 export default FilmDetails;

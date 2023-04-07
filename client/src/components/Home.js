@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { GlobalStyleComponent } from "styled-components";
+import FilmsSlider from "./FilmsSlider";
 
 const img = "https://image.tmdb.org/t/p/w500/";
 
@@ -18,32 +19,14 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      <Wrapper>
-        {films &&
-          films.map((film) => {
-            return (
-              <FilmLink to={`/filmdetails/${film.id}`}>
-                <MovieInfo>
-                  <Img src={img + film.poster_path} />
-                  <P>{film.title}</P>
-                  <P>ImDB: {film.vote_average}</P>
-                </MovieInfo>
-              </FilmLink>
-            );
-          })}
-      </Wrapper>
-    </>
+    <Wrapper>
+      <FilmsSlider films={films} />
+    </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  width: 100%;
-  display: grid;
-  margin-left: 5px;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 0.2em;
-  justify-content: center;
+  padding: 50px;
 `;
 const FilmLink = styled(Link)`
   flex: 0;

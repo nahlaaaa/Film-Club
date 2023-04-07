@@ -4,9 +4,17 @@ import styled from "styled-components";
 import { GlobalStyleComponent } from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { TbMovie } from "react-icons/tb";
+import { GiFilmSpool } from "react-icons/gi";
+import Drama from "./Drama";
+import Theatres from "./Theatres";
+import Comedy from "./Comedy";
 
 const img = "https://image.tmdb.org/t/p/w500/";
+let API_key = "&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee";
+let base_url = "https://api.themoviedb.org/3";
+let url = base_url + "/discover/movie?sort_by=popularity.desc" + API_key;
+
+// let types = ["Theatres", "Popular", "Kids", "Drama", "Science Fiction"];
 
 const Header = () => {
   const [value, setvalue] = useState("");
@@ -14,6 +22,10 @@ const Header = () => {
 
   const onChange = (e) => {
     setvalue(e.target.value);
+  };
+
+  const searchHandle = () => {
+    setSearchedFilms([]);
   };
 
   useEffect(() => {
@@ -35,9 +47,16 @@ const Header = () => {
       <Div>
         <H1 to={"/"}>
           {" "}
-          <TbMovie size={80} />
+          <GiFilmSpool size={80} />
           <P>Film Club</P>
         </H1>
+        <TypesSec>
+          <DramaLink to="/drama">Drama</DramaLink>
+          <TheatresLink to="/theatres">Theatres</TheatresLink>
+          <KidsLink to="/kids">Kids</KidsLink>
+          <SfLink to="/sciencefiction">Science Fiction</SfLink>
+          <ComedyLink to="/comedy">Comedy</ComedyLink>
+        </TypesSec>
         <SearchBar>
           <Input
             type="text"
@@ -52,7 +71,10 @@ const Header = () => {
                 searchedFilms.slice(0, 10).map((film) => {
                   return (
                     <>
-                      <SearchedLink to={`/filmdetails/${film.id}`}>
+                      <SearchedLink
+                        to={`/filmdetails/${film.id}`}
+                        onClick={searchHandle}
+                      >
                         <DropImg src={img + film.poster_path} />
                         <DropDown>{film.title}</DropDown>
                       </SearchedLink>
@@ -84,8 +106,8 @@ const SearchDiv = styled.div`
 
 const Div = styled.div`
   width: 100%;
-  background-color: #9e0505; // red
-  border-radius: 5px;
+  background-color: black; // red #9e0505
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -152,6 +174,39 @@ const SearchedLink = styled(Link)`
   text-decoration: none;
 `;
 
-const P = styled.p``;
+const P = styled.p`
+  font-size: 30px;
+  font-family: "Rubik Pixels", cursive;
+`;
+
+const TypesSec = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const DramaLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
+const TheatresLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
+const KidsLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
+const SfLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
+const ComedyLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
 
 export default Header;
