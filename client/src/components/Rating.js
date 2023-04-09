@@ -62,9 +62,10 @@ const Rating = ({ userId, movieId, selectedFilm }) => {
           isHalf={true}
         />
         <BsFillBookmarkFill
-          color="white"
+          border={"solid black"}
+          color="yellow"
           size={"50px"}
-          fill={watchlist ? "#9e0505" : "white"}
+          fill={watchlist ? "black" : "white"}
           onClick={() => {
             setWatchlist(!watchlist);
             addToWatchlist();
@@ -84,10 +85,10 @@ const Rating = ({ userId, movieId, selectedFilm }) => {
 };
 
 const Textarea = styled.textarea`
-  border: 5px solid #9e0505;
+  border: 5px solid black;
   border-radius: 5px;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   font-family: Arial, sans-serif;
   font-size: 16px;
   padding: 10px;
@@ -101,9 +102,9 @@ const Textarea = styled.textarea`
 `;
 
 const Button = styled.button`
-  background-color: #faf5f5;
+  background-color: white;
   border: none;
-  color: #9e0505;
+  color: black;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -116,12 +117,12 @@ const Button = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #edd5d5;
+    background-color: #8f8b8b;
   }
 `;
 
 const Thanks = styled.p`
-  color: white;
+  color: black;
   margin-top: 10px;
 `;
 

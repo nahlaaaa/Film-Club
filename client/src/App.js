@@ -18,9 +18,9 @@ const App = () => {
     <Wrapper>
       <BrowserRouter>
         <GlobalStyles />
-        <Video autoPlay muted loop>
+        {/* <Video autoPlay muted loop>
           <Source src={BGvideo} />
-        </Video>
+        </Video> */}
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

@@ -24,7 +24,7 @@ const Theatres = () => {
                 <MovieInfo>
                   <Img src={img + the.poster_path} />
                   <P>{the.title}</P>
-                  <P>{the.vote_average}</P>
+                  <P>IMDB: {the.vote_average}</P>
                 </MovieInfo>
               </TheatresLink>
             );
@@ -40,12 +40,12 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 0.2em;
   justify-content: center;
-  padding: 30px;
 `;
 
 const P = styled.p`
   font-family: "Bai Jamjuree", sans-serif;
   font-size: 20px;
+  padding-top: 10px;
 `;
 
 const Img = styled.img`

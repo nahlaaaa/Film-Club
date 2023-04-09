@@ -38,12 +38,7 @@ const FilmDetails = () => {
       {selectedFilm && ytKey && (
         <Wrapper>
           <YtDiv>
-            <YouTube
-              videoId={ytKey}
-              // onReady={(event) => event.target.playVideo()}
-              width={640}
-              height={360}
-            />
+            <YouTube videoId={ytKey} width={640} height={360} />
           </YtDiv>
           <Img src={img + selectedFilm.backdrop_path} />
           <PosterImg src={img + selectedFilm.poster_path} />
@@ -79,7 +74,7 @@ const Wrapper = styled.div`
 
 const InfoDiv = styled.div`
   margin-top: -450px;
-  border: 5px solid #9e0505;
+  border: 5px solid black;
   border-radius: 10px;
   padding-left: 10px;
   width: 900px;
@@ -92,6 +87,7 @@ const Title = styled.h2`
   margin-bottom: 10px;
   color: black;
   font-family: "Bai Jamjuree", sans-serif;
+  padding-top: 10px;
 `;
 
 const OverView = styled.p`
@@ -106,6 +102,7 @@ const Date = styled.p`
   font-size: 30px;
   color: black;
   font-family: "Bai Jamjuree", sans-serif;
+  padding-bottom: 10px;
 `;
 
 const Img = styled.img`

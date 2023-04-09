@@ -39,7 +39,6 @@ const Comedy = () => {
 const Wrapper = styled.div`
   width: 100%;
   display: grid;
-  margin-left: 5px;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 0.2em;
   justify-content: center;

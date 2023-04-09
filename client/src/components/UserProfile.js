@@ -36,7 +36,7 @@ const UserProfile = () => {
       .catch((err) => console.log(err));
   }, [refetchUserData]);
 
-  const updatedReview = (newReview, movieId) => {
+  const updatedReview = (newReview, movieId, newRating) => {
     fetch(`http://localhost:8000/api/userdataupdate`, {
       headers: {
         Accept: "aplication/json",
@@ -45,14 +45,15 @@ const UserProfile = () => {
       method: "PATCH",
       body: JSON.stringify({
         review: newReview,
-        rating: "fake rating",
+        rating: newRating,
         movieId: movieId,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        // setEdit(true);
+        setRefetchUserData(!refetchUserData);
+        alert("your review has been updated :)");
       });
   };
 
@@ -75,58 +76,63 @@ const UserProfile = () => {
   return (
     <Wrapper>
       {user && watchlist && (
-        <UserInfo>
-          <div>
-            <H1>{user.name}</H1>
-            <Img src={user.picture} alt={user?.name} />
-          </div>
-          <ProfileInfo>
-            <H1>latest activities</H1>
-            {profileInfo &&
-              profileInfo
-                .slice(-7)
-                .reverse()
-                .map((info) => {
-                  return (
-                    <>
-                      <PosterImg src={img + info.movieData.poster_path} />
-                      <P>{info.movieData.title}</P>
-                      <P>{info.rating}</P>
-                      <P>{info.review}</P>
-                      <Edit
-                        review={info.review}
-                        updatedReview={updatedReview}
-                        movieId={info.movieData.id}
-                        handleDelete={handleDelete}
-                        refetchUserData={refetchUserData}
-                        setRefetchUserData={setRefetchUserData}
-                      />
-                    </>
-                  );
-                })}
-          </ProfileInfo>
-          <WatchlistBox>
-            <H1>Watchlist</H1>
-            {watchlist.reverse().map((list) => {
-              console.log(list.movieData.id);
-              return (
-                <ListInfo>
-                  <BsFillTrashFill
-                    size={30}
-                    color="white"
-                    onClick={() => {
-                      handleDelete(list.movieData.id);
-                    }}
-                  />
-                  <WatchlistLink to={`/FilmDetails/${list.movieData.id}`}>
-                    <Poster src={img + list.movieData.poster_path} />
-                    <P>{list.movieData.title}</P>
-                  </WatchlistLink>
-                </ListInfo>
-              );
-            })}
-          </WatchlistBox>
-        </UserInfo>
+        <SecWrapper>
+          <UserInfo>
+            <Div>
+              <H2>{user.name}</H2>
+              <Img src={user.picture} alt={user?.name} />
+            </Div>
+          </UserInfo>
+          <MainDiv>
+            <ProfileInfo>
+              <H1>latest activities</H1>
+              {profileInfo &&
+                profileInfo
+                  .slice(-7)
+                  .reverse()
+                  .map((info) => {
+                    return (
+                      <>
+                        <PosterImg src={img + info.movieData.poster_path} />
+                        <P>{info.movieData.title}</P>
+                        <P>your rating: {info.rating}</P>
+                        <P>your review: {info.review}</P>
+                        <Edit
+                          review={info.review}
+                          updatedReview={updatedReview}
+                          movieId={info.movieData.id}
+                          handleDelete={handleDelete}
+                          refetchUserData={refetchUserData}
+                          setRefetchUserData={setRefetchUserData}
+                          rating={info.rating}
+                        />
+                      </>
+                    );
+                  })}
+            </ProfileInfo>
+            <WatchlistBox>
+              <H1>Watchlist</H1>
+              {watchlist.reverse().map((list) => {
+                console.log(list.movieData.id);
+                return (
+                  <ListInfo>
+                    <BsFillTrashFill
+                      size={30}
+                      color="white"
+                      onClick={() => {
+                        handleDelete(list.movieData.id);
+                      }}
+                    />
+                    <WatchlistLink to={`/FilmDetails/${list.movieData.id}`}>
+                      <Poster src={img + list.movieData.poster_path} />
+                      <P>{list.movieData.title}</P>
+                    </WatchlistLink>
+                  </ListInfo>
+                );
+              })}
+            </WatchlistBox>
+          </MainDiv>
+        </SecWrapper>
       )}
     </Wrapper>
   );
@@ -134,44 +140,97 @@ const UserProfile = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  /* background-color: #272727;
+  color: white; */
+  /* display: flex;
   width: 100%;
   display: grid;
   margin-left: 5px;
-  /* grid-template-columns: repeat(1fr, 1fr, 1fr); */
-  /* grid-gap: 0.2em; */
   align-items: center;
   justify-content: space-between;
+  flex: 0;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #272727;
+  color: white;
+  text-decoration: none; */
+`;
+
+const SecWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 5px solid black;
+  padding: 30px;
+  border-radius: 5px;
+  margin: 40px;
+  background-color: #272727;
+  color: white;
+`;
+
+const MainDiv = styled.div`
+  display: flex;
+  column-gap: 150px;
+  padding: 10px 80px;
 `;
 
 const UserInfo = styled.div`
-  flex: 1;
+  border-bottom: 3px solid grey;
+  padding-bottom: 10px;
+  display: flex;
+
+  /* flex: 0;
   display: flex;
   justify-content: center;
-  column-gap: 400px;
+  align-items: center;
+  column-gap: 40px;
+  border: 2px solid #b8b8b8;
+  padding-left: 50px; */
 `;
 
 const ListInfo = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const H1 = styled.h1`
-  /* display: flex;
-  justify-content: left; */
-  font-family: "Yanone Kaffeesatz", sans-serif;
+  border: 2px solid black;
+  padding: 10px;
+  margin: 15px;
+  border-radius: 5px;
+  font-family: "Bai Jamjuree", sans-serif;
+  background-color: #b8b6b6;
+  /* font-family: "Bai Jamjuree", sans-serif
   color: white;
   margin: 20px;
+  font-size: 30px; */
 `;
-
+const H2 = styled.h2`
+  font-family: "Bai Jamjuree", sans-serif;
+`;
 const Img = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border: 2px solid black;
   border-radius: 10px;
   margin: 20px;
 `;
 
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const WatchlistBox = styled.div`
-  flex: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -182,24 +241,34 @@ const WatchlistBox = styled.div`
   text-align: center;
   background-color: #272727;
   color: white;
-  text-decoration: none;
+  text-decoration: none; */
 `;
 
 const P = styled.p`
-  color: yellow;
+  /* color: white;
+  font-family: "Bai Jamjuree", sans-serif; */
+  font-family: "Bai Jamjuree", sans-serif;
+  margin: 5px;
 `;
 
 const Poster = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: auto;
 `;
 
 const WatchlistLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
+  color: white;
 `;
 
 const ProfileInfo = styled.div`
-  flex: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -210,11 +279,11 @@ const ProfileInfo = styled.div`
   text-align: center;
   background-color: #272727;
   color: white;
-  text-decoration: none;
+  text-decoration: none; */
 `;
 
 const PosterImg = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: auto;
 `;
 export default UserProfile;

@@ -10,8 +10,10 @@ const Edit = ({
   movieId,
   refetchUserData,
   setRefetchUserData,
+  rating,
 }) => {
   const [editedReview, setEditedReview] = useState(review);
+  const [editedRating, setEditedRating] = useState(rating);
 
   const deleteReview = (movieId) => {
     console.log(movieId);
@@ -31,14 +33,24 @@ const Edit = ({
   };
   return (
     <>
-      <Textarea onChange={(e) => setEditedReview(e.target.value)}>
-        {review}
-      </Textarea>
+      <Div>
+        <label>update your rating</label>
+        <Input
+          onChange={(e) => setEditedRating(e.target.value)}
+          min={0}
+          max={5}
+          type="number"
+        />
+      </Div>
+      <Textarea
+        onChange={(e) => setEditedReview(e.target.value)}
+        placeholder={"Edit your review?"}
+      ></Textarea>
       <IconsDiv>
         <CiEdit
           size={30}
           onClick={() => {
-            updatedReview(editedReview, movieId);
+            updatedReview(editedReview, movieId, editedRating);
           }}
         />
         <BsFillTrashFill
@@ -53,7 +65,7 @@ const Edit = ({
 };
 
 const Textarea = styled.textarea`
-  border: 5px solid #9e0505;
+  border: 5px solid #b8b6b6;
   border-radius: 5px;
   background-color: white;
   color: black;
@@ -72,4 +84,9 @@ const IconsDiv = styled.div`
   align-items: center;
   gap: 5px;
 `;
+
+const Input = styled.input``;
+
+const Div = styled.div``;
+
 export default Edit;

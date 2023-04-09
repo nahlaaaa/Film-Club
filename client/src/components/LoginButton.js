@@ -12,9 +12,10 @@ const LoginButton = () => {
 };
 
 const Button = styled.button`
-  background-color: #faf5f5;
+  font-family: "Bai Jamjuree", sans-serif;
+  background-color: white;
   border: none;
-  color: #9e0505;
+  color: black;
   padding: 5px 5px;
   height: 35px;
   text-align: center;
@@ -28,7 +29,7 @@ const Button = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #edd5d5;
+    background-color: #8f8b8b;
   }
 `;
 

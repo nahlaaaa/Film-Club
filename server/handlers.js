@@ -173,7 +173,7 @@ const GetWatchlist = async (req, res) => {
       });
     }
   } catch (err) {
-    comsole, log(err);
+    console.log(err);
   }
 };
 
