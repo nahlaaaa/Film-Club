@@ -27,8 +27,10 @@ const FilmsSlider = ({ films }) => {
               <FilmLink to={`/filmdetails/${film.id}`}>
                 <MovieInfo>
                   <Img src={img + film.poster_path} />
-                  <P>{film.title}</P>
-                  <P>IMDB: {film.vote_average}</P>
+                  <Div1>
+                    <P>{film.title}</P>
+                    <P>IMDB: {film.vote_average}</P>
+                  </Div1>
                 </MovieInfo>
               </FilmLink>
             );
@@ -46,7 +48,7 @@ const FilmLink = styled(Link)`
 const P = styled.p`
   font-family: "Bai Jamjuree", sans-serif;
   font-size: 20px;
-  padding-top: 10px;
+  margin: 5px;
 `;
 
 const MovieInfo = styled.div`
@@ -60,4 +62,10 @@ const Img = styled.img`
   height: auto;
 `;
 
+const Div1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+`;
 export default FilmsSlider;

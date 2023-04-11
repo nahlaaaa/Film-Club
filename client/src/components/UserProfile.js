@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BsFillTrashFill } from "react-icons/bs";
-import { CiEdit } from "react-icons/ci";
-import { FcEditImage } from "react-icons/fc";
+import { RxActivityLog } from "react-icons/rx";
+import { BiListPlus } from "react-icons/bi";
 import Edit from "./Edit";
 
 const img = "https://image.tmdb.org/t/p/w500/";
@@ -53,7 +53,7 @@ const UserProfile = () => {
       .then((data) => {
         console.log(data);
         setRefetchUserData(!refetchUserData);
-        alert("your review has been updated :)");
+        // alert("your review has been updated :)");
       });
   };
 
@@ -85,34 +85,40 @@ const UserProfile = () => {
           </UserInfo>
           <MainDiv>
             <ProfileInfo>
-              <H1>latest activities</H1>
+              <H1>
+                Latest Activities <RxActivityLog />
+              </H1>
               {profileInfo &&
                 profileInfo
                   .slice(-7)
                   .reverse()
                   .map((info) => {
                     return (
-                      <>
+                      <Data key={info.id}>
                         <PosterImg src={img + info.movieData.poster_path} />
-                        <P>{info.movieData.title}</P>
-                        <P>your rating: {info.rating}</P>
-                        <P>your review: {info.review}</P>
-                        <Edit
-                          review={info.review}
-                          updatedReview={updatedReview}
-                          movieId={info.movieData.id}
-                          handleDelete={handleDelete}
-                          refetchUserData={refetchUserData}
-                          setRefetchUserData={setRefetchUserData}
-                          rating={info.rating}
-                        />
-                      </>
+                        <RevDiv>
+                          <P>{info.movieData.title}</P>
+                          <P>your rating: {info.rating}</P>
+                          <P>your review: {info.review}</P>
+                          <Edit
+                            review={info.review}
+                            updatedReview={updatedReview}
+                            movieId={info.movieData.id}
+                            handleDelete={handleDelete}
+                            refetchUserData={refetchUserData}
+                            setRefetchUserData={setRefetchUserData}
+                            rating={info.rating}
+                          />
+                        </RevDiv>
+                      </Data>
                     );
                   })}
             </ProfileInfo>
             <WatchlistBox>
-              <H1>Watchlist</H1>
-              {watchlist.reverse().map((list) => {
+              <H1>
+                Watchlist <BiListPlus />{" "}
+              </H1>
+              {watchlist.map((list) => {
                 console.log(list.movieData.id);
                 return (
                   <ListInfo>
@@ -141,24 +147,6 @@ const UserProfile = () => {
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  /* background-color: #272727;
-  color: white; */
-  /* display: flex;
-  width: 100%;
-  display: grid;
-  margin-left: 5px;
-  align-items: center;
-  justify-content: space-between;
-  flex: 0;
-  flex-direction: column;
-  align-items: center;
-  list-style: none;
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  background-color: #272727;
-  color: white;
-  text-decoration: none; */
 `;
 
 const SecWrapper = styled.div`
@@ -182,14 +170,6 @@ const UserInfo = styled.div`
   border-bottom: 3px solid grey;
   padding-bottom: 10px;
   display: flex;
-
-  /* flex: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 40px;
-  border: 2px solid #b8b8b8;
-  padding-left: 50px; */
 `;
 
 const ListInfo = styled.div`
@@ -204,10 +184,9 @@ const H1 = styled.h1`
   border-radius: 5px;
   font-family: "Bai Jamjuree", sans-serif;
   background-color: #b8b6b6;
-  /* font-family: "Bai Jamjuree", sans-serif
-  color: white;
-  margin: 20px;
-  font-size: 30px; */
+  text-align: center;
+  flex: 0;
+  width: 150px;
 `;
 const H2 = styled.h2`
   font-family: "Bai Jamjuree", sans-serif;
@@ -230,23 +209,9 @@ const WatchlistBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* flex: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  list-style: none;
-  margin: 5px;
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  background-color: #272727;
-  color: white;
-  text-decoration: none; */
 `;
 
 const P = styled.p`
-  /* color: white;
-  font-family: "Bai Jamjuree", sans-serif; */
   font-family: "Bai Jamjuree", sans-serif;
   margin: 5px;
 `;
@@ -262,25 +227,28 @@ const WatchlistLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: white;
+  border: 3px solid yellow;
+  border-radius: 5px;
+  padding: 20px;
 `;
 
 const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* flex: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  list-style: none;
-  margin: 5px;
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  background-color: #272727;
-  color: white;
-  text-decoration: none; */
 `;
+
+const Data = styled.div`
+  border: 3px solid yellow;
+  border-radius: 5px;
+  display: flex;
+  width: 500px;
+  column-gap: 40px;
+  align-items: center;
+  padding: 20px;
+`;
+
+const RevDiv = styled.div``;
 
 const PosterImg = styled.img`
   width: 200px;

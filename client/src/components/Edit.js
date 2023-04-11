@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { BsFillTrashFill } from "react-icons/bs";
+import ReactStars from "react-rating-stars-component";
 import styled from "styled-components";
 
 const Edit = ({
@@ -12,8 +13,11 @@ const Edit = ({
   setRefetchUserData,
   rating,
 }) => {
-  const [editedReview, setEditedReview] = useState(review);
-  const [editedRating, setEditedRating] = useState(rating);
+  const [editedReview, setEditedReview] = useState("");
+  const [editedRating, setEditedRating] = useState(0);
+  const [editmode, setEditmode] = useState(false);
+
+  console.log(editedRating, editedReview);
 
   const deleteReview = (movieId) => {
     console.log(movieId);
@@ -28,35 +32,52 @@ const Edit = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setEditmode(false);
         setRefetchUserData(!refetchUserData);
       });
   };
   return (
     <>
-      <Div>
-        <label>update your rating</label>
-        <Input
-          onChange={(e) => setEditedRating(e.target.value)}
-          min={0}
-          max={5}
-          type="number"
-        />
-      </Div>
-      <Textarea
-        onChange={(e) => setEditedReview(e.target.value)}
-        placeholder={"Edit your review?"}
-      ></Textarea>
+      {editmode && (
+        <>
+          <Div>
+            <label>update your rating</label>
+            <ReactStars
+              activeColor={"#dbbf09"}
+              onChange={(newRating) => setEditedRating(newRating)}
+              size={30}
+              isHalf={true}
+            />
+          </Div>
+          <Textarea
+            onChange={(e) => setEditedReview(e.target.value)}
+            value={editedReview}
+            placeholder={"Edit your review?"}
+          ></Textarea>
+        </>
+      )}
       <IconsDiv>
-        <CiEdit
-          size={30}
-          onClick={() => {
-            updatedReview(editedReview, movieId, editedRating);
-          }}
-        />
+        {editmode ? (
+          <CiEdit
+            size={30}
+            onClick={() => {
+              updatedReview(editedReview, movieId, editedRating);
+            }}
+          />
+        ) : (
+          <CiEdit
+            size={30}
+            onClick={() => {
+              setEditmode(true);
+            }}
+          />
+        )}
         <BsFillTrashFill
           size={20}
           onClick={() => {
+            setEditedRating(0);
             deleteReview(movieId);
+            setEditedReview("");
           }}
         />
       </IconsDiv>
