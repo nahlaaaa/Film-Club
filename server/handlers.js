@@ -6,7 +6,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-const { CONNECTION_STRING_URI } = process.env;
+const { CONNECTION_STRING_URI, MOVIEDB_API_KEY } = process.env;
 
 // :: Movies endpoint
 
@@ -14,7 +14,7 @@ const getFilms = async (req, res) => {
   const { search } = req.query;
   console.log(search);
   fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1&include_adult=false&query=${search}`
+    `https://api.themoviedb.org/3/search/movie?api_key=${MOVIEDB_API_KEY}&language=en-US&page=1&include_adult=false&query=${search}`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -25,7 +25,7 @@ const getFilms = async (req, res) => {
 
 const getPopFilms = async (req, res) => {
   fetch(
-    "https://api.themoviedb.org/3/movie/popular?api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+    `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIEDB_API_KEY}&language=en-US&page=1`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -38,7 +38,7 @@ const getPopFilms = async (req, res) => {
 const getSingleFilm = async (req, res) => {
   const id = req.params.id;
   fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US`
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${MOVIEDB_API_KEY}&language=en-US`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -247,7 +247,7 @@ const deleteUserData = async (req, res) => {
 const getTrailer = async (req, res) => {
   const { movieId } = req.params;
   fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US`
+    `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${MOVIEDB_API_KEY}&language=en-US`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -261,7 +261,7 @@ const getTrailer = async (req, res) => {
 };
 const getDrama = async (req, res) => {
   fetch(
-    "https://api.themoviedb.org/3/discover/movie?with_genres=18&primary_release_year=2014&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+    `https://api.themoviedb.org/3/discover/movie?with_genres=18&primary_release_year=2014&api_key=${MOVIEDB_API_KEY}&language=en-US&page=1`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -273,7 +273,7 @@ const getDrama = async (req, res) => {
 
 const getTheatres = async (req, res) => {
   fetch(
-    "https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+    `https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22&api_key=${MOVIEDB_API_KEY}&language=en-US&page=1`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -285,7 +285,7 @@ const getTheatres = async (req, res) => {
 
 const getKids = async (req, res) => {
   fetch(
-    "https://api.themoviedb.org/3/discover/movie?certification_country=US&certification.lte=G&sort_by=popularity.desc&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+    `https://api.themoviedb.org/3/discover/movie?certification_country=US&certification.lte=G&sort_by=popularity.desc&api_key=${MOVIEDB_API_KEY}&language=en-US&page=1`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -297,7 +297,7 @@ const getKids = async (req, res) => {
 
 const getScienceFiction = async (req, res) => {
   fetch(
-    "https://api.themoviedb.org/3/discover/movie?with_genres=878&with_cast=500&sort_by=vote_average.desc&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+    `https://api.themoviedb.org/3/discover/movie?with_genres=878&with_cast=500&sort_by=vote_average.desc&api_key=${MOVIEDB_API_KEY}&language=en-US&page=1`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -309,7 +309,7 @@ const getScienceFiction = async (req, res) => {
 
 const getComedy = async (req, res) => {
   fetch(
-    "https://api.themoviedb.org/3/discover/movie?with_genres=35&with_cast=23659&sort_by=revenue.desc&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee&language=en-US&page=1"
+    `https://api.themoviedb.org/3/discover/movie?with_genres=35&with_cast=23659&sort_by=revenue.desc&api_key=${MOVIEDB_API_KEY}&language=en-US&page=1`
   )
     .then((res) => res.json())
     .then((data) => {
