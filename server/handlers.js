@@ -19,7 +19,6 @@ const getFilms = async (req, res) => {
     .then((res) => res.json())
     .then((data) => {
       res.status(200).json(data);
-      // console.log(data);
     });
   return;
 };
@@ -47,29 +46,6 @@ const getSingleFilm = async (req, res) => {
       console.log(data);
     });
   return;
-  const client = new MongoClient(CONNECTION_STRING_URI, options);
-  const db = client.db("concordiadb");
-  // const _id = parseInt(req.params._id);
-  try {
-    await client.connect();
-    const filmfound = await db.collection("items").findOne({ id: id });
-    if (filmfound) {
-      return res
-        .status(200)
-        .json({ status: 200, data: filmfound, message: "success" });
-    } else {
-      return res.status(404).json({
-        status: 404,
-        data: null,
-        message:
-          "failed to retreive items data, please contact the system administrator or try again later",
-      });
-    }
-  } catch (err) {
-    console.log(err);
-  } finally {
-    client.close();
-  }
 };
 
 const postRating = async (req, res) => {
