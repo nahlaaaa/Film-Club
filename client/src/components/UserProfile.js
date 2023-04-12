@@ -187,6 +187,8 @@ const H1 = styled.h1`
   text-align: center;
   flex: 0;
   width: 150px;
+  display: flex;
+  justify-content: center;
 `;
 const H2 = styled.h2`
   font-family: "Bai Jamjuree", sans-serif;
