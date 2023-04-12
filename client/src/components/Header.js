@@ -1,13 +1,8 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import SignIn from "./SignIn";
 import styled from "styled-components";
-import { GlobalStyleComponent } from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GiFilmSpool } from "react-icons/gi";
-import Drama from "./Drama";
-import Theatres from "./Theatres";
-import Comedy from "./Comedy";
 
 const img = "https://image.tmdb.org/t/p/w500/";
 let API_key = "&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee";
