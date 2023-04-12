@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 import { GiFilmSpool } from "react-icons/gi";
 
 const img = "https://image.tmdb.org/t/p/w500/";
-let API_key = "&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee";
-let base_url = "https://api.themoviedb.org/3";
-let url = base_url + "/discover/movie?sort_by=popularity.desc" + API_key;
 
 const Header = () => {
   const [value, setvalue] = useState("");
@@ -77,7 +74,6 @@ const Header = () => {
             </SearchDiv>
           </SearchWrapper>
         </SearchBar>
-
         <SignIn />
       </Div>
     </>

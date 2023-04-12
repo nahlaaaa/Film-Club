@@ -5,9 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 
 const SignIn = () => {
-  console.log("here");
   const { isLoading, error } = useAuth0();
-  console.log(error);
 
   return (
     <main className="colum">

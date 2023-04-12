@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { GlobalStyleComponent } from "styled-components";
@@ -12,8 +11,8 @@ const FilmsSlider = ({ films }) => {
   const settings = {
     dots: true,
     infinite: true,
-    autoplay: true, // Enable auto play
-    autoplaySpeed: 3000, // Set auto play interval in milliseconds
+    autoplay: true,
+    autoplaySpeed: 3000,
     slidesToShow: 3,
     slidesToScroll: 1,
   };

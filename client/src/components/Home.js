@@ -28,27 +28,5 @@ const Home = () => {
 const Wrapper = styled.div`
   padding: 50px;
 `;
-const FilmLink = styled(Link)`
-  flex: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  list-style: none;
-  margin: 5px;
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  background-color: #272727;
-  color: white;
-  text-decoration: none;
-`;
 
-const P = styled.p``;
-
-const MovieInfo = styled.div``;
-
-const Img = styled.img`
-  width: 200px;
-  height: 400px;
-`;
 export default Home;

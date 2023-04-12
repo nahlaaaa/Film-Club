@@ -53,7 +53,6 @@ const UserProfile = () => {
       .then((data) => {
         console.log(data);
         setRefetchUserData(!refetchUserData);
-        // alert("your review has been updated :)");
       });
   };
 

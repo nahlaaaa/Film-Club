@@ -13,13 +13,6 @@ const Profile = () => {
             <Container>
               <H2>{user.name}</H2>
               {user?.picture && <Img src={user.picture} alt={user?.name} />}
-              {/* <ul>
-          {Object.keys(user).map((objKey, i) => (
-            <li key={i}>
-              {objKey}: {user[objKey]}
-            </li>
-          ))}
-        </ul> */}
             </Container>
           )}
         </>

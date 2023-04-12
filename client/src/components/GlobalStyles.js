@@ -35,11 +35,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     line-height: 1;
-    /* background-image: url(${backgroundImg}); */
     background-color: #b8b6b6;
     background-size: cover;
     background-repeat: no-repeat;
-    /* font-family: 'Yanone', sans-serif !important */
 }
 ol, ul {
     list-style: none;

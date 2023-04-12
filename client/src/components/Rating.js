@@ -31,9 +31,6 @@ const Rating = ({ userId, movieId, selectedFilm }) => {
         setRating(data);
         console.log(data);
         setSubmited(true);
-        // setInterval(() => {
-        //   setSubmited(false);
-        // }, 2000);
       });
   };
 

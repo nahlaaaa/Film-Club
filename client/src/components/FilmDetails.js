@@ -112,7 +112,6 @@ const Img = styled.img`
 `;
 
 const PosterImg = styled.img`
-  /* position: absolute; */
   position: relative;
   top: -250px;
   left: 0;
@@ -142,15 +141,6 @@ const YtDiv = styled.div`
   top: 150px;
   left: 400px;
   padding-top: 50px;
-`;
-
-const YtButton = styled.button`
-  border-radius: 10px;
-  position: absolute;
-  top: 570px;
-  left: 660px;
-  padding-top: 50px;
-  z-index: 1;
 `;
 
 export default FilmDetails;

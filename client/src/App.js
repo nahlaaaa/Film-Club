@@ -11,16 +11,12 @@ import Drama from "./components/Drama";
 import Kids from "./components/Kids";
 import ScienceFiction from "./components/ScienceFiction";
 import Comedy from "./components/Comedy";
-import BGvideo from "./video.mp4";
 
 const App = () => {
   return (
     <Wrapper>
       <BrowserRouter>
         <GlobalStyles />
-        {/* <Video autoPlay muted loop>
-          <Source src={BGvideo} />
-        </Video> */}
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -42,15 +38,4 @@ const Wrapper = styled.div`
   min-width: 1250px;
 `;
 
-const Video = styled.video`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -10;
-`;
-
-const Source = styled.source``;
 export default App;
