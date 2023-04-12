@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import backgroundImg from "./movies.jpeg";
 // import Yanone from "../fonts/YanoneKaffeesatz-VariableFont_wght.ttf";
 
 export default createGlobalStyle`
