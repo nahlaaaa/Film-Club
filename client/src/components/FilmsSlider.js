@@ -28,7 +28,7 @@ const FilmsSlider = ({ films }) => {
                 <MovieInfo>
                   <Img src={img + film.poster_path} />
                   <Div1>
-                    <P>{film.title}</P>
+                    <P1>{film.title}</P1>
                     <P>IMDB: {film.vote_average}</P>
                   </Div1>
                 </MovieInfo>
@@ -67,5 +67,10 @@ const Div1 = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5px;
+`;
+
+const P1 = styled(P)`
+  font-weight: bold;
+  font-size: 25px;
 `;
 export default FilmsSlider;

@@ -43,6 +43,7 @@ const H2 = styled.h2`
 
 const ProfileLink = styled(Link)`
   text-decoration: none;
+  font-family: "Bai Jamjuree", sans-serif;
 `;
 
 const Container = styled.div`

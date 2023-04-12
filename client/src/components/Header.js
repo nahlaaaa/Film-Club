@@ -14,8 +14,6 @@ let API_key = "&api_key=7fc3c9eee3e52dcfbb994c64d2cb42ee";
 let base_url = "https://api.themoviedb.org/3";
 let url = base_url + "/discover/movie?sort_by=popularity.desc" + API_key;
 
-// let types = ["Theatres", "Popular", "Kids", "Drama", "Science Fiction"];
-
 const Header = () => {
   const [value, setvalue] = useState("");
   const [searchedFilms, setSearchedFilms] = useState(null);
@@ -107,7 +105,7 @@ const SearchDiv = styled.div`
 const Div = styled.div`
   width: 100%;
   background-color: black; // red #9e0505
-
+  min-width: 1300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -181,32 +179,42 @@ const P = styled.p`
 
 const TypesSec = styled.div`
   display: flex;
-  gap: 10px;
+  font-family: "Bai Jamjuree", sans-serif;
+  align-items: center;
 `;
 
 const DramaLink = styled(Link)`
   text-decoration: none;
   color: white;
+  border-right: 2px solid white;
+  padding: 3px 12px;
 `;
 
 const TheatresLink = styled(Link)`
   text-decoration: none;
   color: white;
+  border-right: 2px solid white;
+  padding: 3px 12px;
 `;
 
 const KidsLink = styled(Link)`
   text-decoration: none;
   color: white;
+  border-right: 2px solid white;
+  padding: 3px 12px;
 `;
 
 const SfLink = styled(Link)`
   text-decoration: none;
   color: white;
+  border-right: 2px solid white;
+  padding: 3px 12px;
 `;
 
 const ComedyLink = styled(Link)`
   text-decoration: none;
   color: white;
+  padding: 3px 12px;
 `;
 
 export default Header;

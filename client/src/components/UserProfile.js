@@ -94,7 +94,7 @@ const UserProfile = () => {
                   .reverse()
                   .map((info) => {
                     return (
-                      <Data key={info.id}>
+                      <Data>
                         <PosterImg src={img + info.movieData.poster_path} />
                         <RevDiv>
                           <P>{info.movieData.title}</P>
@@ -108,6 +108,7 @@ const UserProfile = () => {
                             refetchUserData={refetchUserData}
                             setRefetchUserData={setRefetchUserData}
                             rating={info.rating}
+                            id={info.id}
                           />
                         </RevDiv>
                       </Data>

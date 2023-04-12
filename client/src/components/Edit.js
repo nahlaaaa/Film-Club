@@ -12,6 +12,7 @@ const Edit = ({
   refetchUserData,
   setRefetchUserData,
   rating,
+  id,
 }) => {
   const [editedReview, setEditedReview] = useState("");
   const [editedRating, setEditedRating] = useState(0);
@@ -37,7 +38,7 @@ const Edit = ({
       });
   };
   return (
-    <>
+    <Wrapper key={id}>
       {editmode && (
         <>
           <Div>
@@ -81,7 +82,7 @@ const Edit = ({
           }}
         />
       </IconsDiv>
-    </>
+    </Wrapper>
   );
 };
 
@@ -109,5 +110,7 @@ const IconsDiv = styled.div`
 const Input = styled.input``;
 
 const Div = styled.div``;
+
+const Wrapper = styled.div``;
 
 export default Edit;
